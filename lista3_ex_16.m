@@ -61,16 +61,14 @@ function Mp = pivotamento(Mt)
 
   for i = 1 : length(Mt)-1
 
-      [v, pos] = max(abs(Mt(i:end,i))); % pos retorna a posicao que ta o maior valor da coluna, v(valor) ignoro
+      [~, pos] = max(abs(Mt(i:end,i))); % pos retorna a posicao que ta o maior valor da coluna, v(valor) ignoro
       pos = pos + i-1; % ajustando pra pegar o elemento abaixo da diagonal principal
       Mtemp = Mt(i,:); % salvando os valores da matriz base
       Mt(i,:) = Mt(pos,:); % trocando a linha com o maior valor
       Mt(pos,:) = Mtemp;
 
   endfor
-
   Mp = Mt;
-
 end
 
 function MtE = gaussJordan(Mt)

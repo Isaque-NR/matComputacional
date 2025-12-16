@@ -67,7 +67,6 @@ function plotaGraficoAnimado(todosXR,todosY,xli,xls)
      legend([g1,g2],'f(x)','raizes estimadas');
      pause(0.4);
   endfor
-
 endfunction
 
 function plotaGraficoX(todosXR)
