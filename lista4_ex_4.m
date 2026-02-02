@@ -11,14 +11,7 @@ function lista4_ex_4 ()
   [pontoOtimoG,iG,todosXG,todosYG] = metodoGradiente(x0,aG,maxItr,tol); % notase que o metodo nao
    %prints...
    [todosZ,intervaloX,intervaloY] = superficie();
-   plotagrafico3DNewton(todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN);
-
-
-
-
-
-
-
+   plotagrafico3DNewton(pontoOtimoN,todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN);
 
 
 function vetY = f(vetx)
@@ -119,7 +112,7 @@ function [todosZ,intervaloX,intervaloY] = superficie() %funcao para preencher a 
 
 endfunction
 
-function plotagrafico3DNewton(todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN)
+function plotagrafico3DNewton(pontoOtimoN,todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN)
   figure(1);
   clf;
   surf(intervaloX,intervaloY,todosZ); %plotando o grafico com a superficie
@@ -128,9 +121,15 @@ function plotagrafico3DNewton(todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN
   xlabel('x');
   ylabel('y');
   zlabel('f(x,y)');
-  title(sprintf('Grafico 3D animado da otimizacao da funcao Himmelblau \nutilizando o metodo de Newoton com alpha = %.6f',aN));
+  title(sprintf('Grafico 3D animado da otimizacao da funcao Himmelblau \nutilizando o metodo de Newthon com alpha = %.6f\nNo ponto inicial (%.6f , %.6f)\n O ponto otimo encontrado foi: (%.6f, %.6f)',aN,todosXN(1,1),todosXN(1,2),pontoOtimoN(1),pontoOtimoN(2)));
   colormap jet;
-
+  plot3(todosXN(:,1),todosXN(:,2),todosYN,'--','linewidth',3,'color',[1 0 1]);
+  ponto = plot3(todosXN(1,1),todosXN(1,2),todosYN(1),'ro', 'markersize',5,'markerfacecolor','r');
+  for i = 1:iN
+    set(ponto,'XData',todosXN(i,1),'YData',todosXN(i,2),'ZData',todosYN(i));
+    %title(sprintf('Iteracao: %d',iN));
+    pause(2);
+  endfor
 
 endfunction
 
