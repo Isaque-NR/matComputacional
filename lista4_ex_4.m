@@ -6,12 +6,12 @@ function lista4_ex_4 ()
   aN = 1; %  0,0001 <= alpha <= 10
   aG = 0.0001; % alphas diferentes pois o metodo do gradiente nao estava convergindo com alpha = 1, estava dando NaN
 
-  [pontoOtimoN,iN,todosXN,todosYN] = metodoNewton(x0,aN,maxItr,tol)
+  [pontoOtimoN,iN,todosXN,todosYN] = metodoNewton(x0,aN,maxItr,tol);
   %prints...
-  [pontoOtimoG,iG,todosXG,todosYG] = metodoGradiente(x0,aG,maxItr,tol) % notase que o metodo nao
+  [pontoOtimoG,iG,todosXG,todosYG] = metodoGradiente(x0,aG,maxItr,tol); % notase que o metodo nao
    %prints...
    [todosZ,intervaloX,intervaloY] = superficie();
-   surf(intervaloX,intervaloY,todosZ);
+   plotagrafico3DNewton(todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN);
 
 
 
@@ -106,18 +106,52 @@ function [ pontoOtimoG, iG, todosXG, todosYG] = metodoGradiente(x0,a,maxItr,tol)
  endfunction
 
 function [todosZ,intervaloX,intervaloY] = superficie() %funcao para preencher a matriz Z que vai ser a superficie do grafico 3D
-  intervaloX = linspace(-6,6,500);
+  intervaloX = linspace(-6,6,500); %intervalos para os espacamentos q estao na figura da lista
   intervaloY = linspace(-6,6,500);
 
   todosZ = nan(length(intervaloY),length(intervaloX));
 
-  for i = 1:length(intervaloX)
+  for i = 1:length(intervaloX) % matriz contendo os resultados de fa funcao para cada (x,y)
     for j = 1:length(intervaloY)
         todosZ(j,i) = f([intervaloX(i);intervaloY(j)]); %preenchimento da matriz Z com o valor da funcao para cada intervalo de x e y, (j,i) pq o octave preenche linha por coluna
     endfor
   endfor
 
 endfunction
+
+function plotagrafico3DNewton(todosXN,todosYN,todosZ,intervaloX,intervaloY,iN,aN)
+  figure(1);
+  clf;
+  surf(intervaloX,intervaloY,todosZ); %plotando o grafico com a superficie
+  hold on;
+  grid on;
+  xlabel('x');
+  ylabel('y');
+  zlabel('f(x,y)');
+  title(sprintf('Grafico 3D animado da otimizacao da funcao Himmelblau \nutilizando o metodo de Newoton com alpha = %.6f',aN));
+  colormap jet;
+
+
+endfunction
+
+##function plotagrafico3DGradiente(todosXG,todosYG,todosZ,intervaloX,intervaloY,iN)
+##  figure(2);
+##  clf;
+##  surf(intervaloX,intervaloY,todosZ); %plotando o grafico com a superficie
+##  hold on;
+##  grid on;
+##  xlabel('x');
+##  ylabel('y');
+##  zlabel('f(x,y)');
+##  title('Grafico 3D animado da otimizacao da funcao Himmelblau utilizando o metodo do Gradiente ');
+##  colormap jet;
+##
+## endfunction
+
+
+
+
+
 
 
 
