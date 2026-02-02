@@ -3,12 +3,16 @@ function lista4_ex_4 ()
   x0 = [2.5 ; 2.5];
   maxItr = 1000;
   tol = 1e-3;
-  aN= 1; %  0,0001 <= alpha <= 10
-  aG = 0.01;
+  aN = 1; %  0,0001 <= alpha <= 10
+  aG = 0.0001; % alphas diferentes pois o metodo do gradiente nao estava convergindo com alpha = 1, estava dando NaN
 
-  [pontoOtimoN,iN] = metodoNewton(x0,aN,maxItr,tol)
+  [pontoOtimoN,iN,todosXN,todosYN] = metodoNewton(x0,aN,maxItr,tol)
+  %prints...
+  [pontoOtimoG,iG,todosXG,todosYG] = metodoGradiente(x0,aG,maxItr,tol) % notase que o metodo nao
+   %prints...
+   [todosZ,intervaloX,intervaloY] = superficie();
+   surf(intervaloX,intervaloY,todosZ);
 
-  [pontoOtimoG,iG] = metodoGradiente(x0,aG,maxItr,tol)
 
 
 
@@ -101,8 +105,19 @@ function [ pontoOtimoG, iG, todosXG, todosYG] = metodoGradiente(x0,a,maxItr,tol)
   pontoOtimoG = x0;
  endfunction
 
+function [todosZ,intervaloX,intervaloY] = superficie() %funcao para preencher a matriz Z que vai ser a superficie do grafico 3D
+  intervaloX = linspace(-6,6,500);
+  intervaloY = linspace(-6,6,500);
 
+  todosZ = nan(length(intervaloY),length(intervaloX));
 
+  for i = 1:length(intervaloX)
+    for j = 1:length(intervaloY)
+        todosZ(j,i) = f([intervaloX(i);intervaloY(j)]); %preenchimento da matriz Z com o valor da funcao para cada intervalo de x e y, (j,i) pq o octave preenche linha por coluna
+    endfor
+  endfor
+
+endfunction
 
 
 
