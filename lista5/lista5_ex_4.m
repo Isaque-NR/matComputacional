@@ -61,26 +61,29 @@ endfunction
 function [r2,r] = calcularR2(x,y,coeficientes)
 
   lx = length(x) ;
-  somay = 0;
-  for i = 1:lx
-    somay = somay + y(i); %fazendo a soma total
-  endfor
-  mediay = somay / lx; %calculando media de y
+##  somay = 0;
+##  for i = 1:lx
+##    somay = somay + y(i); %fazendo a soma total
+##  endfor
+##  mediay = somay / lx; %calculando media de y
+mediay = mean(y);
 
   yAjustado = zeros(lx,1);
   for i = 1:lx
     yAjustado(i) = calcularPolinomio(coeficientes,x(i));  %ajustando os valores
   endfor
 
-  St = 0;
-  for i = 1:lx
-    St = St + (y(i) - mediay)^2;
-  endfor
-
-  Sr = 0;
-  for i = 1:lx
-    Sr = Sr + (y(i) - yAjustado(i))^2;
-  endfor
+##  St = 0;
+##  for i = 1:lx
+##    St = St + (y(i) - mediay)^2;
+##  endfor
+##
+##  Sr = 0;
+##  for i = 1:lx
+##    Sr = Sr + (y(i) - yAjustado(i))^2;
+##  endfor
+  St = sum(y - mediay).^2;
+  Sr = sum(y - yAjustado).^2;
 
   r2 = (St - Sr) / St;
   r = sqrt(r2);
